@@ -1,0 +1,32 @@
+plugins {
+    id 'java-library'
+}
+
+def versionObj = new Version(major: 0, minor: 7, revision: 7)
+
+group 'com.github.natanbc'
+version "${versionObj}"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    baseName = project.name
+
+    sourceSets.main.output.classesDirs.each {
+        from it
+    }
+
+    manifest {
+        attributes 'Implementation-Version': version
+    }
+}
+
+class Version {
+    String major, minor, revision
+
+
+    String toString() {
+        "${major}.${minor}" + (revision == "0" ? "" : ".${revision}")
+    }
+}
